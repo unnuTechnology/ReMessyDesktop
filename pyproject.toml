@@ -1,6 +1,8 @@
 [project]
-name = "remessydesktop"
+name = "ReMessyDesktop"
 version = "0.1.0"
-description = "Add your description here"
+description = "Refactor NoMessyDesktop."
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "cseslib4py>=0.1.2",
+]
