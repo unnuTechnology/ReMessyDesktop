@@ -1,6 +1,7 @@
 [project]
 name = "ReMessyDesktop"
-version = "0.1.0"
+version = "0.1.0pre1"
+version-codename = "Sanshan Island"
 description = "Refactor NoMessyDesktop."
 requires-python = ">=3.13"
 dependencies = [
