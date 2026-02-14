@@ -1,8 +1,7 @@
-import os
 import pathlib
 import json
 
-from src.log_util import log
+from src.util.log import log
 
 
 DEFAULT_CONFIG_PATH = pathlib.Path.cwd() / "config" / "config.json"
