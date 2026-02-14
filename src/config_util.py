@@ -1,7 +1,6 @@
 import os
 import pathlib
 import json
-from sys import api_version
 
 from src.log_util import log
 
@@ -26,7 +25,6 @@ def is_valid_config(config: dict) -> bool:
         log.error(f"配置文件中指定的检测路径 ({config['app']['detect_path']}) 不存在。")
         return False
     return True
-
 
 
 def read_config_from(path: pathlib.Path = DEFAULT_CONFIG_PATH) -> dict:
