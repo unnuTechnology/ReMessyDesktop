@@ -1,12 +1,11 @@
 import os
 import pathlib
 import json
-from typing import Any, Self
+from typing import Any
 
 import pydantic
 
 from src.util.log import log
-
 
 DEFAULT_CONFIG_PATH = pathlib.Path.cwd() / "config" / "config.json"
 CONFIG_API_VERSION = 1
@@ -15,7 +14,29 @@ CONFIG_TEMPLATE = {
     "app": {
         "detect_path": str(pathlib.Path.expanduser(pathlib.Path("~/Desktop"))),
     },
+    "classification": {
+        "cses_classifier": {
+            "cses_path": ""
+        },
+        "regex_classifier": {
+            "patterns": {
+            }
+        }
+    }
 }
+
+
+class _CSESClassifierConfig(pydantic.BaseModel):
+    cses_path: str
+
+
+class _RegexClassifierConfig(pydantic.BaseModel):
+    patterns: dict[str, str]
+
+
+class _ClassificationConfig(pydantic.BaseModel):
+    cses_classifier: _CSESClassifierConfig
+    regex_classifier: _RegexClassifierConfig
 
 
 class _AppConfig(pydantic.BaseModel):
@@ -39,6 +60,7 @@ class _AppConfig(pydantic.BaseModel):
 class Config(pydantic.BaseModel):
     api_version: int
     app: _AppConfig
+    classification: _ClassificationConfig
 
     @pydantic.field_validator("api_version")
     @classmethod

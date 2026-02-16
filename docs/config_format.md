@@ -22,10 +22,10 @@ ReMessyDesktop 的配置文件格式是 JSON 格式，一般存放在 `/config/c
       "cses_path": str // CSES 课表文件的路径
     },
     "regex_classifier": {
-      "patterns": [
+      "patterns": {
         str: str,  // 正则表达式模式，键为科目名称，值为正则表达式
         ...
-      ]
+      }
     }
   }
 }
