@@ -56,7 +56,7 @@ class Config(pydantic.BaseModel):
 
 
 def get_config(path: pathlib.Path = DEFAULT_CONFIG_PATH) -> Config:
-    """获取配置对象。"""
+    """获取配置对象。若不存在，会用模板初始化一个配置文件。"""
     try:
         return build_config(read_config_from(path))
     except FileNotFoundError:
@@ -80,7 +80,7 @@ def is_valid_config(config: dict) -> bool:
 def build_config(config: dict) -> Config:
     """从 ``config`` 构建一个 ``Config`` 对象。"""
     built = Config(**config)
-    log.debug(f"成功构建配置对象：{built}")
+    log.debug(f"成功构建配置对象：{built!r}")
     return built
 
 

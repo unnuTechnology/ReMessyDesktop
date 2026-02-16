@@ -16,6 +16,17 @@ ReMessyDesktop 的配置文件格式是 JSON 格式，一般存放在 `/config/c
   "api_version": 1,  // API 版本
   "app": {
     "detect_path": str  // 要检测的文件夹的路径
+  },
+  "classification": {
+    "cses_classifier": {
+      "cses_path": str // CSES 课表文件的路径
+    },
+    "regex_classifier": {
+      "patterns": [
+        str: str,  // 正则表达式模式，键为科目名称，值为正则表达式
+        ...
+      ]
+    }
   }
 }
 ```
