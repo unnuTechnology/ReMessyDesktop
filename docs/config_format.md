@@ -26,6 +26,11 @@ ReMessyDesktop 的配置文件格式是 JSON 格式，一般存放在 `/config/c
         str: str,  // 正则表达式模式，键为科目名称，值为正则表达式
         ...
       }
+    },
+    "file_type_classifier": {
+      "rules": {
+        str: str  // 文件类型规则，键为文件扩展名，值为科目名称/SKIP/DELETE (代表不处理/删除)
+      }
     }
   }
 }

@@ -1,3 +1,5 @@
+import traceback
+
 from src.util.log import log
 from src.util.versioning import VERSION_FULL
 from src.util import config
@@ -20,5 +22,6 @@ if __name__ == "__main__":
         app = ReMessyDesktop()
         app.run()
     except Exception as e:
-        log.critical(f"发生不可恢复的错误：{e}")
+        log.critical(f"发生不可恢复的错误：{type(e).__name__}: {e}")
+        log.debug(traceback.format_exc())
         exit(1)

@@ -21,6 +21,10 @@ CONFIG_TEMPLATE = {
         "regex_classifier": {
             "patterns": {
             }
+        },
+        "file_type_classifier": {
+            "rules": {
+            }
         }
     }
 }
@@ -34,9 +38,14 @@ class _RegexClassifierConfig(pydantic.BaseModel):
     patterns: dict[str, str]
 
 
+class _FileTypeClassifierConfig(pydantic.BaseModel):
+    rules: dict[str, str]
+
+
 class _ClassificationConfig(pydantic.BaseModel):
     cses_classifier: _CSESClassifierConfig
     regex_classifier: _RegexClassifierConfig
+    file_type_classifier: _FileTypeClassifierConfig
 
 
 class _AppConfig(pydantic.BaseModel):

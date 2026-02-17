@@ -2,11 +2,12 @@
 from pathlib import Path
 from typing import Callable, NamedTuple
 
+from src.classification import ClassificationResult
 from src.util.config import Config
 from src.util.log import log
 
 # 分类器函数的类型，接受待分类文件路径和配置对象，返回科目名称字符串 (若不需要存放，返回 None)
-ClassifierFunc = Callable[[Path, Config], str | None]
+ClassifierFunc = Callable[[Path, Config], str | ClassificationResult]
 
 
 class ClassifierDict(NamedTuple):
