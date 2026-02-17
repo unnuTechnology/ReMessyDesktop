@@ -6,7 +6,7 @@ from src.util.config import Config
 
 
 @registerer.register_classifier("正则表达式分类")
-def regex(path: Path, config: Config) -> str | ClassificationResult:
+def regex_classifier(path: Path, config: Config) -> str | ClassificationResult:
     filename = "".join(path.name.split(".")[:-1])  # 去除扩展名
     patterns = {
         subject: re.compile(pattern)

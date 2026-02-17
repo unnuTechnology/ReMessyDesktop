@@ -46,6 +46,22 @@ class _ClassificationConfig(pydantic.BaseModel):
     cses_classifier: _CSESClassifierConfig
     regex_classifier: _RegexClassifierConfig
     file_type_classifier: _FileTypeClassifierConfig
+    priority: dict[str, int]
+
+    @pydantic.field_validator("priority")
+    @classmethod
+    def validate_priority(cls, value: dict[str, int]) -> dict[str, int]:
+        for key in ["cses_classifier",
+                    "regex_classifier",
+                    "scorer_classifier",
+                    "file_type_classifier"]:
+            if key not in value:
+                log.error(f"配置文件中缺少分类器优先级项 {key}。")
+                raise KeyError(f"配置文件中缺少分类器优先级项 {key}。")
+        sorted_values = sorted(tuple(value.values()))
+        if any(i != j for i, j in zip(enumerate(sorted_values), sorted_values)):
+            log.error(f"配置文件中分类器优先级项 ({value}) 的值必须从 0 开始并且连续。")
+            raise ValueError(f"配置文件中分类器优先级项 ({value}) 的值必须从 0 开始并且连续。")
 
 
 class _AppConfig(pydantic.BaseModel):

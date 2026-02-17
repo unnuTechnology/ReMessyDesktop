@@ -41,4 +41,4 @@ example_config = config.Config(
     ]
 )
 def test_file_type_classifier(path, expected):
-    assert file_type.filetype(path, example_config) == expected
+    assert file_type.file_type_classifier(path, example_config) == expected

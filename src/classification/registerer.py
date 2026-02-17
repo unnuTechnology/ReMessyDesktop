@@ -10,20 +10,23 @@ from src.util.log import log
 ClassifierFunc = Callable[[Path, Config], str | ClassificationResult]
 
 
-class ClassifierDict(NamedTuple):
+class Classifier(NamedTuple):
     """分类器，用于存储已注册的分类器。"""
     name: str  # 分类器人类可读名称
     id: str  # 分类器唯一标识符
     func: ClassifierFunc  # 分类器函数
 
+    def __call__(self, path: Path, config: Config) -> str | ClassificationResult:
+        return self.func(path, config)
 
-classifiers: list[ClassifierDict] = []
+
+classifiers: list[Classifier] = []
 
 
 def register_classifier(name: str) -> Callable[[ClassifierFunc], ClassifierFunc]:
     """注册一个分类器。"""
     def decorator(func: ClassifierFunc) -> ClassifierFunc:
-        classifiers.append(ClassifierDict(name=name, id=func.__name__, func=func))
+        classifiers.append(Classifier(name=name, id=func.__name__, func=func))
         log.debug(f"分类器 {name} ({func.__name__}) 成功注册。")
         return func
     return decorator

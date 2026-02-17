@@ -28,15 +28,9 @@ example_config = config.Config(
 
 
 def test_regex_classifier():
-    assert regex.regex(
-        pathlib.Path("./S1-abc.pptx"), example_config
-    ) == "S1"
-    assert regex.regex(
-        pathlib.Path("./abc-S2.pptx"), example_config
-    ) == "S2"
+    assert regex.regex_classifier(pathlib.Path("./S1-abc.pptx"), example_config) == "S1"
+    assert regex.regex_classifier(pathlib.Path("./abc-S2.pptx"), example_config) == "S2"
 
 
 def test_classifier_skip():
-    assert regex.regex(
-        pathlib.Path("./foobar.docx"), example_config
-    ) == ClassificationResult.SKIP
+    assert regex.regex_classifier(pathlib.Path("./foobar.docx"), example_config) == ClassificationResult.SKIP
