@@ -23,7 +23,7 @@ def classify(path: Path, config: Config) -> str | ClassificationResult:
                 return res
             case _:
                 return res
-    return ClassificationResult.SKIP
+    return ClassificationResult.UNKNOWN
 
 
 __all__ = (  # pyright: ignore [reportUnsupportedDunderAll]

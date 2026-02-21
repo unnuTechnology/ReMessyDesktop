@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 from src.classification import registerer, ClassificationResult
 from src.util.config import Config
 

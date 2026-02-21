@@ -25,6 +25,12 @@ CONFIG_TEMPLATE = {
         "file_type_classifier": {
             "rules": {
             }
+        },
+        "priority": {
+            "cses_classifier": 1,
+            "regex_classifier": 0,
+            "scorer_classifier": 2,
+            "file_type_classifier": 3
         }
     }
 }
@@ -58,10 +64,13 @@ class _ClassificationConfig(pydantic.BaseModel):
             if key not in value:
                 log.error(f"配置文件中缺少分类器优先级项 {key}。")
                 raise KeyError(f"配置文件中缺少分类器优先级项 {key}。")
+
         sorted_values = sorted(tuple(value.values()))
-        if any(i != j for i, j in zip(enumerate(sorted_values), sorted_values)):
+        if any(i != j for i, j in enumerate(sorted_values)):
             log.error(f"配置文件中分类器优先级项 ({value}) 的值必须从 0 开始并且连续。")
             raise ValueError(f"配置文件中分类器优先级项 ({value}) 的值必须从 0 开始并且连续。")
+
+        return value
 
 
 class _AppConfig(pydantic.BaseModel):

@@ -6,28 +6,14 @@ from src.classification import file_type
 from src.classification.results import ClassificationResult
 from src.util import config
 
-example_config = config.Config(
-    api_version=1,
-    app=config._AppConfig(
-        detect_path=".",
-    ),
-    classification=config._ClassificationConfig(
-        cses_classifier=config._CSESClassifierConfig(
-            cses_path="",
-        ),
-        regex_classifier=config._RegexClassifierConfig(
-            patterns={}
-        ),
-        file_type_classifier=config._FileTypeClassifierConfig(
-            rules={
-                "png": "EN",
-                "txt": "CN",
-                "tmp": "DELETE",
-                "pptx": "SKIP",
-            }
-        )
-    )
-)
+
+example_config = config.Config(**config.CONFIG_TEMPLATE)
+example_config.classification.file_type_classifier = config._FileTypeClassifierConfig(rules={
+    "png": "EN",
+    "txt": "CN",
+    "tmp": "DELETE",
+    "pptx": "SKIP",
+})
 
 
 @pytest.mark.parametrize(
