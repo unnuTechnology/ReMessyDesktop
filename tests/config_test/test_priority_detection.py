@@ -24,3 +24,13 @@ def test_validator_ok() -> None:
 def test_not_start_from_zero() -> None:
     with pytest.raises(ValueError):
         validator(get_priority(range(1, 5)))
+
+
+def test_not_continual() -> None:
+    with pytest.raises(ValueError):
+        validator(get_priority([0, 2, 3, 4]))
+
+
+def test_duplicate() -> None:
+    with pytest.raises(ValueError):
+        validator(get_priority([0, 0, 1, 2]))
