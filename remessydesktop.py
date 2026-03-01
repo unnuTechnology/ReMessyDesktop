@@ -1,14 +1,14 @@
 import traceback
 
 from src.util.log import log
-from src.util.versioning import VERSION_FULL
+from src.util.versioning import VERSION_FULL, BUILD_CODE
 from src.util import config
 from src.classification import classifiers
 
 
 class ReMessyDesktop:
     def __init__(self):
-        log.info("ReMessyDesktop 正在初始化……")
+        log.info(f"ReMessyDesktop ({BUILD_CODE}) 正在初始化……")
         self.config = config.get_config()
         log.debug(f"获取到的分类器：{classifiers!r}")
         log.success(f"ReMessyDesktop ({VERSION_FULL}) 成功初始化。")
@@ -18,6 +18,13 @@ class ReMessyDesktop:
 
 
 if __name__ == "__main__":
+    print("""\
+███╗   ██╗ ██████╗ ███╗   ███╗███████╗███████╗███████╗██╗   ██╗██████╗ ███████╗███████╗██╗  ██╗████████╗ ██████╗ ██████╗ 
+████╗  ██║██╔═══██╗████╗ ████║██╔════╝██╔════╝██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔════╝██║ ██╔╝╚══██╔══╝██╔═══██╗██╔══██╗
+██╔██╗ ██║██║   ██║██╔████╔██║█████╗  ███████╗███████╗ ╚████╔╝ ██║  ██║█████╗  ███████╗█████╔╝    ██║   ██║   ██║██████╔╝
+██║╚██╗██║██║   ██║██║╚██╔╝██║██╔══╝  ╚════██║╚════██║  ╚██╔╝  ██║  ██║██╔══╝  ╚════██║██╔═██╗    ██║   ██║   ██║██╔═══╝ 
+██║ ╚████║╚██████╔╝██║ ╚═╝ ██║███████╗███████║███████║   ██║   ██████╔╝███████╗███████║██║  ██╗   ██║   ╚██████╔╝██║     
+╚═╝  ╚═══╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚══════╝╚══════╝   ╚═╝   ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝     """)
     try:
         app = ReMessyDesktop()
         app.run()
