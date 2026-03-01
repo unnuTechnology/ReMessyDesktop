@@ -18,4 +18,10 @@
     </option>
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="uv (ReMessyDesktop)" project-jdk-type="Python SDK" />
+  <component name="RuffConfiguration">
+    <option name="enabled" value="true" />
+  </component>
+  <component name="TyConfiguration">
+    <option name="enabled" value="true" />
+  </component>
 </project>
