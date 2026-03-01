@@ -5,7 +5,7 @@ from src.classification.results import ClassificationResult
 from src.util import config
 
 
-example_config = config.Config(**config.CONFIG_TEMPLATE)
+example_config = config.Config(**config.CONFIG_TEMPLATE)  # ty: ignore
 example_config.classification.regex_classifier = config._RegexClassifierConfig(
     patterns={
         "S1": r"^S1-.*$",

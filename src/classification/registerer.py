@@ -26,7 +26,9 @@ classifiers: list[Classifier] = []
 def register_classifier(name: str) -> Callable[[ClassifierFunc], ClassifierFunc]:
     """注册一个分类器。"""
     def decorator(func: ClassifierFunc) -> ClassifierFunc:
-        classifiers.append(Classifier(name=name, id=func.__name__, func=func))
-        log.debug(f"分类器 {name} ({func.__name__}) 成功注册。")
+        classifiers.append(
+            Classifier(name=name, id=getattr(func, "__name__", f"UNKNOWN_classifier_{len(classifiers)}"), func=func)
+        )
+        log.debug(f"分类器 {classifiers[-1]} 成功注册。")
         return func
     return decorator

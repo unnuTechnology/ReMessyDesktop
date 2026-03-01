@@ -29,5 +29,12 @@ def classify(path: Path, config: Config) -> str | ClassificationResult:
 
 
 __all__ = (  # pyright: ignore [reportUnsupportedDunderAll]
-    ClassificationResult, cses, regex, scorer, file_type, Classifier, classifiers, register_classifier
+    ClassificationResult,
+    cses,
+    regex,
+    scorer,
+    file_type,
+    Classifier,
+    classifiers,
+    register_classifier,
 )
