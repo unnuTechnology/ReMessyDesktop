@@ -45,5 +45,5 @@ def cses_classifier(_: Path, config: Config, now_tm: datetime.datetime | None = 
             log.debug(f'当前时间 ({now}) 在 放学后({end}-) 之间，返回 UNKNOWN')
             return subject
     else:
-        log.debug(f'没有匹配项，返回 UNKNOWN')
+        log.debug('没有匹配项，返回 UNKNOWN')
         return ClassificationResult.UNKNOWN
