@@ -28,4 +28,4 @@ def scorer_classifier(path: Path, config: Config) -> str | ClassificationResult:
     if top3_scores:
         return top3[0][0]
     else:
-        return ClassificationResult.SKIP
+        return ClassificationResult.UNKNOWN

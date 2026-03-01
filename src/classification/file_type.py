@@ -16,4 +16,4 @@ def file_type_classifier(path: Path, config: Config) -> str | ClassificationResu
             else:
                 return subject
     else:
-        return ClassificationResult.SKIP
+        return ClassificationResult.UNKNOWN

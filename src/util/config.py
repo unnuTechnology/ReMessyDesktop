@@ -16,7 +16,8 @@ CONFIG_TEMPLATE = {
     },
     "classification": {
         "cses_classifier": {
-            "cses_path": ""
+            "cses_path": "",
+            "start_day": "1970-01-01"
         },
         "regex_classifier": {
             "patterns": {
@@ -38,6 +39,7 @@ CONFIG_TEMPLATE = {
 
 class _CSESClassifierConfig(pydantic.BaseModel):
     cses_path: str
+    start_day: str
 
 
 class _RegexClassifierConfig(pydantic.BaseModel):

@@ -19,5 +19,5 @@ def test_regex_classifier():
     assert regex.regex_classifier(pathlib.Path("./abc-S2.pptx"), example_config) == "S2"
 
 
-def test_classifier_skip():
-    assert regex.regex_classifier(pathlib.Path("./foobar.docx"), example_config) == ClassificationResult.SKIP
+def test_classifier_unknown():
+    assert regex.regex_classifier(pathlib.Path("./foobar.docx"), example_config) == ClassificationResult.UNKNOWN

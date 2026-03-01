@@ -17,10 +17,12 @@ def classify(path: Path, config: Config) -> str | ClassificationResult:
     """根据路径和配置返回分类结果"""
     for clsr in sorted_classifiers(config):
         match (res := clsr(path, config)):
-            case ClassificationResult.SKIP:
+            case ClassificationResult.UNKNOWN:
                 continue
             case ClassificationResult.DELETE:
                 return res
+            case ClassificationResult.SKIP:
+                return ClassificationResult.SKIP
             case _:
                 return res
     return ClassificationResult.UNKNOWN

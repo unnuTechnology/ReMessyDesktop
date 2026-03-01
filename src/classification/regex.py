@@ -17,4 +17,4 @@ def regex_classifier(path: Path, config: Config) -> str | ClassificationResult:
         if pattern.match(filename):
             return subject
     else:
-        return ClassificationResult.SKIP
+        return ClassificationResult.UNKNOWN

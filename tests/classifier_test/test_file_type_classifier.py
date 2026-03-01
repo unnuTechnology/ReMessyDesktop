@@ -23,7 +23,7 @@ example_config.classification.file_type_classifier = config._FileTypeClassifierC
         (pathlib.Path("test.txt"), "CN"),
         (pathlib.Path("test.tmp"), ClassificationResult.DELETE),
         (pathlib.Path("test.pptx"), ClassificationResult.SKIP),
-        (pathlib.Path("test"), ClassificationResult.SKIP),
+        (pathlib.Path("test"), ClassificationResult.UNKNOWN),
     ]
 )
 def test_file_type_classifier(path, expected):
