@@ -1,6 +1,6 @@
 from pathlib import Path
 from src.classification.results import ClassificationResult
-from src.classification import cses, regex, scorer, file_type
+from src.classification import cses, regex, scorer, file_type, classisland
 from src.classification.registerer import Classifier, classifiers, register_classifier
 from src.util.config import Config
 
@@ -31,6 +31,7 @@ def classify(path: Path, config: Config) -> str | ClassificationResult:
 __all__ = (  # pyright: ignore [reportUnsupportedDunderAll]
     ClassificationResult,
     cses,
+    classisland,
     regex,
     scorer,
     file_type,
