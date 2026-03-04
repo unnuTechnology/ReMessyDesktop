@@ -76,7 +76,7 @@ if csharp_ok:
             self.is_connected = False
             self._no_plugin_logged = False
             self._last_on_class_left_log_time = 0  # 上次记录距离上课时间的时间
-            self._last_known_subject_name: Optional[str] = None
+            self._last_known_subject_name: str = ""
 
         def start_ipc_client(self) -> bool:
             """
@@ -198,11 +198,14 @@ if csharp_ok:
                     lessonSc.CurrentSubject.Name if lessonSc.CurrentSubject else ""
                 )
                 # 如果获取到的是 class_name 为空 或者是 "???"，说明当前没有课程
-                if not class_name or class_name.strip() == "???":
+                if not class_name or class_name.strip() in ("???", "课间休息"):
+                    print(f"-1{self._last_known_subject_name=}")
                     log.debug("ClassIsland 当前没有课程")
                     return {}
                 log.info(f"从 ClassIsland 获取当前课程: {class_name}")
+                print(f"-0{self._last_known_subject_name=}")
                 self._last_known_subject_name = class_name
+                print(f"0{self._last_known_subject_name=}")
                 return {"name": class_name}
 
             except Exception as e:
@@ -245,6 +248,7 @@ if csharp_ok:
                 return {}
 
         def get_previous_class_info(self) -> dict:
+            print(f"2{self._last_known_subject_name=}")
             if not self._last_known_subject_name:
                 return {}
             if self._last_known_subject_name.strip() == "???":
@@ -285,10 +289,12 @@ if csharp_ok:
                 self.ipc_client.Provider, self.ipc_client.PeerProxy
             )
             try:
-                if lessonSc.CurrentSubject and lessonSc.CurrentSubject.Name:
+                if lessonSc.CurrentSubject.Name:
                     name = str(lessonSc.CurrentSubject.Name)
-                    if name and name.strip() != "???":
+                    if name and name.strip() not in ("???", "课间休息"):
+                        print(f"5{self._last_known_subject_name=}")
                         self._last_known_subject_name = name
+                        print(f"6{self._last_known_subject_name=}")
             except Exception:
                 pass
             log.debug(
@@ -377,12 +383,14 @@ if csharp_ok:
                 raise IPCError("ClassIsland IPC 客户端启动失败")
 
         def __exit__(self, exc_type, exc_val, exc_tb):
-            self.stop_ipc_client()
             if exc_type is not None:
                 log.error(f"IPC 上下文中出现错误: {exc_type.__name__}: {exc_val}")
                 log.debug(f"{traceback.format_tb(exc_tb)}")
                 return False
             return True
+
+        def __del__(self):
+            self.stop_ipc_client()
 else:
     class CSharpIPCHandler:
         """C# dotnetCampus.Ipc 处理器，用于连接 ClassIsland 实例"""

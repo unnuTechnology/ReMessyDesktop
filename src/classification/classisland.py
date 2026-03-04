@@ -9,11 +9,11 @@ from src.util.log import log
 @registerer.register_classifier("ClassIsland 联动分类")
 def classisland_classifier(_1: Path, _2: Config) -> ClassificationResult:
     try:
-        with ci.CSharpIPCHandler() as ci_ipc:
+        with ci.CSharpIPCHandler.instance() as ci_ipc:
             res = ci_ipc.get_current_class_info()
             log.debug(f"ClassIsland 当前课程信息：{res}")
-            if not res:
-                log.warning("ClassIsland 当前课程返回空值，尝试获取上节课课程信息")
+            if not res or res.get("name", "") == "课间休息":
+                log.warning('ClassIsland 当前课程返回空值或"课间休息"，尝试获取上节课课程信息')
                 res = ci_ipc.get_previous_class_info()
                 log.debug(f"ClassIsland 上节课课程信息：{res}")
                 if not res:
