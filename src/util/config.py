@@ -33,6 +33,12 @@ CONFIG_TEMPLATE = {
             "scorer_classifier": 2,
             "file_type_classifier": 3
         }
+    },
+    "placing": {
+        "enabled_placer": "default_placer",
+        "default_placer": {
+            "places": {}
+        }
     }
 }
 
@@ -75,6 +81,15 @@ class _ClassificationConfig(pydantic.BaseModel):
         return value
 
 
+class _DefaultPlacerConfig(pydantic.BaseModel):
+    places: dict[str, str]
+
+
+class _PlacingConfig(pydantic.BaseModel):
+    enabled_placer: str
+    default_placer: _DefaultPlacerConfig
+
+
 class _AppConfig(pydantic.BaseModel):
     detect_path: str
 
@@ -97,6 +112,7 @@ class Config(pydantic.BaseModel):
     api_version: int
     app: _AppConfig
     classification: _ClassificationConfig
+    placing: _PlacingConfig
 
     @pydantic.field_validator("api_version")
     @classmethod

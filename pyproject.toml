@@ -12,6 +12,7 @@ dependencies = [
     "python-dateutil>=2.9.0.post0",
     "pythonnet>=3.0.5",
     "ruff>=0.15.4",
+    "send2trash>=2.1.0",
 ]
 
 [[tool.uv.index]]
