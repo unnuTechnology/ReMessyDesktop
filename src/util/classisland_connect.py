@@ -1,19 +1,15 @@
 import sys
+import time
 import traceback
 import asyncio
 import threading
-from typing import Optional, Any, TypedDict
+from typing import Optional, Any
 
 from src.util.log import log
 
 
-class SelectedStudentNotificationInfo(TypedDict):
-    student_id: int
-    student_name: str
-    display_text: str
-    exists: bool
-    group_name: str
-    lottery_name: str
+class IPCError(RuntimeError):
+    """ClassIsland IPC 错误"""
 
 
 csharp_ok = False
@@ -317,10 +313,10 @@ if csharp_ok:
                 log.debug("C# IPC 连接成功！")
 
                 while self.is_running:
-                    await asyncio.sleep(1)
+                    await asyncio.sleep(.5)
 
                     # log.debug(f"stat: plugin({self._check_plugin_alive()}) ci({self._check_ci_alive()})")
-                    if not self.check_plugin_alive():
+                    if not self.check_ci_alive():
                         if not self.check_ci_alive():
                             log.debug("C# IPC 断连！重连...")
                             self.is_connected = False
@@ -332,7 +328,7 @@ if csharp_ok:
                             self.is_connected = True
                             log.debug("C# IPC 连接成功！")
                         elif not self._no_plugin_logged:
-                            log.debug("未安装 SecRandom-Ci 插件。")
+                            log.debug("未安装插件。")
                             self._no_plugin_logged = True
                     else:
                         self._no_plugin_logged = False
@@ -372,6 +368,21 @@ if csharp_ok:
                 return int(value)
             except Exception:
                 return 0
+
+        def __enter__(self) -> "CSharpIPCHandler":
+            if self.start_ipc_client():
+                time.sleep(0.5)
+                return self
+            else:
+                raise IPCError("ClassIsland IPC 客户端启动失败")
+
+        def __exit__(self, exc_type, exc_val, exc_tb):
+            self.stop_ipc_client()
+            if exc_type is not None:
+                log.error(f"IPC 上下文中出现错误: {exc_type.__name__}: {exc_val}")
+                log.debug(f"{traceback.format_tb(exc_tb)}")
+                return False
+            return True
 else:
     class CSharpIPCHandler:
         """C# dotnetCampus.Ipc 处理器，用于连接 ClassIsland 实例"""
@@ -461,6 +472,12 @@ else:
             """ClassIsland 是否正常连接"""
             return False
 
-        def check_plugin_alive(self) -> bool:
-            """SecRandom-Ci 插件是否正常连接"""
+        def __enter__(self) -> CSharpIPCHandler:
+            if self.start_ipc_client():
+                return self
+            else:
+                raise IPCError("ClassIsland IPC 客户端启动失败")
+
+        def __exit__(self, exc_type, exc_val, exc_tb):
+            self.stop_ipc_client()
             return False

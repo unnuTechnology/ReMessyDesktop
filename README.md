@@ -25,7 +25,7 @@
 - 许可证：`GPL v3`
 - 版权许可：
   > Copyright © 2025-2026 SECTL
-- 状态：移除了原文件 SecRandom 相关的部分功能
+- 状态：移除了原文件 SecRandom 相关的部分功能并将 IPC 客户端包装为上下文管理器
 
 ---
 <div align="center"> © 2025-2026 unnuTech </div>
