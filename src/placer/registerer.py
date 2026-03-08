@@ -12,11 +12,14 @@ PlacerFunc = Callable[[str | ClassificationResult, Config, Path], None]
 
 class Placer(NamedTuple):
     """放置器，用于存储已注册的放置器。"""
+
     name: str  # 放置器人类可读名称
     id: str  # 放置器唯一标识符
     func: PlacerFunc  # 放置器函数
 
-    def __call__(self, result: str | ClassificationResult, config: Config, path: Path) -> None:
+    def __call__(
+        self, result: str | ClassificationResult, config: Config, path: Path
+    ) -> None:
         return self.func(result, config, path)
 
 
@@ -25,10 +28,16 @@ placers: list[Placer] = []
 
 def register_placer(name: str) -> Callable[[PlacerFunc], PlacerFunc]:
     """注册一个放置器。"""
+
     def decorator(func: PlacerFunc) -> PlacerFunc:
         placers.append(
-            Placer(name=name, id=getattr(func, "__name__", f"UNKNOWN_placer_{len(placers)}"), func=func)
+            Placer(
+                name=name,
+                id=getattr(func, '__name__', f'UNKNOWN_placer_{len(placers)}'),
+                func=func,
+            )
         )
-        log.debug(f"放置器 {placers[-1]} 成功注册。")
+        log.debug(f'放置器 {placers[-1]} 成功注册。')
         return func
+
     return decorator

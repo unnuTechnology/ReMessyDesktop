@@ -1,16 +1,22 @@
 from pathlib import Path
 from src.classification.results import ClassificationResult
 from src.classification import cses, regex, scorer, file_type, classisland
-from src.classification.registerer import Classifier, classifiers, register_classifier
+from src.classification.registerer import (
+    Classifier,
+    classifiers,
+    register_classifier,
+)
 from src.util.config import Config
 
 
 def sorted_classifiers(config: Config) -> list[Classifier]:
     """根据配置返回分类器列表，按优先级排序"""
-    return list(sorted(
-        classifiers,
-        key=lambda x: config.classification.priority[x.id],
-    ))
+    return list(
+        sorted(
+            classifiers,
+            key=lambda x: config.classification.priority[x.id],
+        )
+    )
 
 
 def classify(path: Path, config: Config) -> str | ClassificationResult:

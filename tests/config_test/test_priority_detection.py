@@ -7,14 +7,19 @@ validator = _ClassificationConfig.validate_priority
 
 
 def get_priority(priority: Iterable[int]) -> dict[str, int]:
-    return {k: v for k, v in zip(
-        [
-            "cses_classifier",
-            "regex_classifier",
-            "scorer_classifier",
-            "file_type_classifier"
-        ],
-        priority, strict=True)}
+    return {
+        k: v
+        for k, v in zip(
+            [
+                'cses_classifier',
+                'regex_classifier',
+                'scorer_classifier',
+                'file_type_classifier',
+            ],
+            priority,
+            strict=True,
+        )
+    }
 
 
 def test_validator_ok() -> None:

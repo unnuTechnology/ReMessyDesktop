@@ -5,13 +5,12 @@ from src.classification import registerer, ClassificationResult
 from src.util.config import Config
 
 
-@registerer.register_classifier("正则表达式分类")
+@registerer.register_classifier('正则表达式分类')
 def regex_classifier(path: Path, config: Config) -> str | ClassificationResult:
     filename = path.name.removesuffix(path.suffix)  # 去除扩展名
     patterns = {
         subject: re.compile(pattern)
-        for subject, pattern in
-        config.classification.regex_classifier.patterns.items()
+        for subject, pattern in config.classification.regex_classifier.patterns.items()
     }
     for subject, pattern in patterns.items():
         if pattern.match(filename):

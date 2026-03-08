@@ -8,23 +8,27 @@ from src.util import config
 
 
 example_config = config.Config(**config.CONFIG_TEMPLATE)  # ty: ignore
-example_config.classification.file_type_classifier = config._FileTypeClassifierConfig(rules={
-    "png": "EN",
-    "txt": "CN",
-    "tmp": "DELETE",
-    "pptx": "SKIP",
-})
+example_config.classification.file_type_classifier = (
+    config._FileTypeClassifierConfig(
+        rules={
+            'png': 'EN',
+            'txt': 'CN',
+            'tmp': 'DELETE',
+            'pptx': 'SKIP',
+        }
+    )
+)
 
 
 @pytest.mark.parametrize(
-    "path, expected",
+    'path, expected',
     [
-        (pathlib.Path("test.png"), "EN"),
-        (pathlib.Path("test.txt"), "CN"),
-        (pathlib.Path("test.tmp"), ClassificationResult.DELETE),
-        (pathlib.Path("test.pptx"), ClassificationResult.SKIP),
-        (pathlib.Path("test"), ClassificationResult.UNKNOWN),
-    ]
+        (pathlib.Path('test.png'), 'EN'),
+        (pathlib.Path('test.txt'), 'CN'),
+        (pathlib.Path('test.tmp'), ClassificationResult.DELETE),
+        (pathlib.Path('test.pptx'), ClassificationResult.SKIP),
+        (pathlib.Path('test'), ClassificationResult.UNKNOWN),
+    ],
 )
 def test_file_type_classifier(path, expected):
     assert file_type.file_type_classifier(path, example_config) == expected

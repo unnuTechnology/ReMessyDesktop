@@ -3,4 +3,4 @@ import sys
 from loguru import logger as log
 
 log.remove()
-log.add(sys.stderr, level="DEBUG")
+log.add(sys.stderr, level='DEBUG')

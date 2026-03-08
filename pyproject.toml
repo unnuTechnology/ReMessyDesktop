@@ -21,6 +21,7 @@ default = true
 
 [project.optional-dependencies]
 dev = [
+    "blue>=0.9.1",
     "pluggy>=1.6.0",
     "pytest>=9.0.2",
     "ruff>=0.15.4",
