@@ -39,7 +39,7 @@ example_config.classification.cses_classifier = config._CSESClassifierConfig(
 )
 def test_cses_classifier(now, expected):
     result = cses.cses_classifier(
-        Path(""),
+        Path(''),
         example_config,
         now_tm=now,  # ty: ignore  # pyright: ignore
     )
