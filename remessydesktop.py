@@ -5,6 +5,7 @@ from src.util.versioning import VERSION_FULL, BUILD_CODE
 from src.util import config
 from src.classification import classifiers
 from src.placer import placers
+from src.watching import watchers
 
 
 class ReMessyDesktop:
@@ -13,6 +14,7 @@ class ReMessyDesktop:
         self.config = config.get_config()
         log.debug(f'获取到的分类器：{classifiers!r}')
         log.debug(f'获取到的存放器：{placers!r}')
+        log.debug(f'获取到的监听器：{watchers!r}')
         log.success(f'ReMessyDesktop ({VERSION_FULL}) 成功初始化。')
 
     def run(self):
