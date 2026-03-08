@@ -54,7 +54,7 @@ def cses_classifier(
             # 最后一节课，times_subject[i+1][0][0] 抛出异常
             # 此时第一个 if 语句完成判断（并且没有执行），则说明当前时间在最后一节课之后
             log.debug(f'当前时间 ({now}) 在 放学后({end}-) 之间，返回 UNKNOWN')
-            return subject
+            return ClassificationResult.UNKNOWN
     else:
         log.debug('没有匹配项，返回 UNKNOWN')
         return ClassificationResult.UNKNOWN
