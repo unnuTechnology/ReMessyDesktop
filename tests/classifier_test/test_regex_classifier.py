@@ -15,14 +15,8 @@ example_config.classification.regex_classifier = config._RegexClassifierConfig(
 
 
 def test_regex_classifier():
-    assert (
-        regex.regex_classifier(pathlib.Path('./S1-abc.pptx'), example_config)
-        == 'S1'
-    )
-    assert (
-        regex.regex_classifier(pathlib.Path('./abc-S2.pptx'), example_config)
-        == 'S2'
-    )
+    assert regex.regex_classifier(pathlib.Path('./S1-abc.pptx'), example_config) == 'S1'
+    assert regex.regex_classifier(pathlib.Path('./abc-S2.pptx'), example_config) == 'S2'
 
 
 def test_classifier_unknown():

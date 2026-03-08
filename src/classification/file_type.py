@@ -5,9 +5,7 @@ from src.util.config import Config
 
 
 @registerer.register_classifier('文件类型分类')
-def file_type_classifier(
-    path: Path, config: Config
-) -> str | ClassificationResult:
+def file_type_classifier(path: Path, config: Config) -> str | ClassificationResult:
     ft = path.suffix.removeprefix('.')  # 去除扩展名的前导点
     for (
         type_,

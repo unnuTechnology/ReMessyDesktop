@@ -8,15 +8,13 @@ from src.util import config
 
 
 example_config = config.Config(**config.CONFIG_TEMPLATE)  # ty: ignore
-example_config.classification.file_type_classifier = (
-    config._FileTypeClassifierConfig(
-        rules={
-            'png': 'EN',
-            'txt': 'CN',
-            'tmp': 'DELETE',
-            'pptx': 'SKIP',
-        }
-    )
+example_config.classification.file_type_classifier = config._FileTypeClassifierConfig(
+    rules={
+        'png': 'EN',
+        'txt': 'CN',
+        'tmp': 'DELETE',
+        'pptx': 'SKIP',
+    }
 )
 
 

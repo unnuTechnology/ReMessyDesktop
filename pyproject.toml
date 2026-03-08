@@ -64,3 +64,6 @@ exclude = [
     "vendors/",
     "docs/config_format.md"
 ]
+
+[tool.blue]
+line-length = 88

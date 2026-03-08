@@ -123,18 +123,16 @@ if csharp_ok:
 
         def is_breaking(self) -> bool:
             """是否处于下课时间"""
-            lessonSc = GeneratedIpcFactory.CreateIpcProxy[
-                IPublicLessonsService
-            ](self.ipc_client.Provider, self.ipc_client.PeerProxy)
+            lessonSc = GeneratedIpcFactory.CreateIpcProxy[IPublicLessonsService](
+                self.ipc_client.Provider, self.ipc_client.PeerProxy
+            )
             state = lessonSc.CurrentState in [
                 getattr(TimeState, 'None'),
                 TimeState.PrepareOnClass,
                 TimeState.Breaking,
                 TimeState.AfterSchool,
             ]
-            log.debug(
-                f'获取到的 ClassIsland 时间状态: {lessonSc.CurrentState} 是否下课: {state}'
-            )
+            log.debug(f'获取到的 ClassIsland 时间状态: {lessonSc.CurrentState} 是否下课: {state}')
             return state
 
         def get_on_class_left_time(self) -> int:
@@ -146,9 +144,9 @@ if csharp_ok:
             try:
                 import time
 
-                lessonSc = GeneratedIpcFactory.CreateIpcProxy[
-                    IPublicLessonsService
-                ](self.ipc_client.Provider, self.ipc_client.PeerProxy)
+                lessonSc = GeneratedIpcFactory.CreateIpcProxy[IPublicLessonsService](
+                    self.ipc_client.Provider, self.ipc_client.PeerProxy
+                )
                 on_class_left_time = lessonSc.OnClassLeftTime
                 total_seconds = int(on_class_left_time.TotalSeconds)
 
@@ -185,9 +183,9 @@ if csharp_ok:
                 if not self.is_running or not self.is_connected:
                     return {}
 
-                lessonSc = GeneratedIpcFactory.CreateIpcProxy[
-                    IPublicLessonsService
-                ](self.ipc_client.Provider, self.ipc_client.PeerProxy)
+                lessonSc = GeneratedIpcFactory.CreateIpcProxy[IPublicLessonsService](
+                    self.ipc_client.Provider, self.ipc_client.PeerProxy
+                )
 
                 # 检查是否有当前课程
                 if not lessonSc.CurrentSubject:
@@ -196,9 +194,7 @@ if csharp_ok:
 
                 # 获取课程名称
                 class_name = (
-                    lessonSc.CurrentSubject.Name
-                    if lessonSc.CurrentSubject
-                    else ''
+                    lessonSc.CurrentSubject.Name if lessonSc.CurrentSubject else ''
                 )
                 # 如果获取到的是 class_name 为空 或者是 "???"，说明当前没有课程
                 if not class_name or class_name.strip() in ('???', '课间休息'):
@@ -226,9 +222,9 @@ if csharp_ok:
                 if not self.is_running or not self.is_connected:
                     return {}
 
-                lessonSc = GeneratedIpcFactory.CreateIpcProxy[
-                    IPublicLessonsService
-                ](self.ipc_client.Provider, self.ipc_client.PeerProxy)
+                lessonSc = GeneratedIpcFactory.CreateIpcProxy[IPublicLessonsService](
+                    self.ipc_client.Provider, self.ipc_client.PeerProxy
+                )
 
                 # 检查是否有下一节课
                 if not lessonSc.NextClassSubject:
@@ -237,9 +233,7 @@ if csharp_ok:
 
                 # 获取课程名称
                 class_name = (
-                    lessonSc.NextClassSubject.Name
-                    if lessonSc.NextClassSubject
-                    else ''
+                    lessonSc.NextClassSubject.Name if lessonSc.NextClassSubject else ''
                 )
                 if not class_name or class_name.strip() == '???':
                     log.debug('ClassIsland 下一节课名称无效')
@@ -265,9 +259,9 @@ if csharp_ok:
                 if not self.is_running or not self.is_connected:
                     return 0
 
-                lessonSc = GeneratedIpcFactory.CreateIpcProxy[
-                    IPublicLessonsService
-                ](self.ipc_client.Provider, self.ipc_client.PeerProxy)
+                lessonSc = GeneratedIpcFactory.CreateIpcProxy[IPublicLessonsService](
+                    self.ipc_client.Provider, self.ipc_client.PeerProxy
+                )
 
                 current_index = int(lessonSc.CurrentSelectedIndex)
                 if current_index <= 0:
@@ -290,9 +284,9 @@ if csharp_ok:
                 return 0
 
         def _on_class_test(self):
-            lessonSc = GeneratedIpcFactory.CreateIpcProxy[
-                IPublicLessonsService
-            ](self.ipc_client.Provider, self.ipc_client.PeerProxy)
+            lessonSc = GeneratedIpcFactory.CreateIpcProxy[IPublicLessonsService](
+                self.ipc_client.Provider, self.ipc_client.PeerProxy
+            )
             try:
                 if lessonSc.CurrentSubject.Name:
                     name = str(lessonSc.CurrentSubject.Name)

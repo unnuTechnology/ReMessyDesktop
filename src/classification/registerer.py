@@ -4,7 +4,6 @@ from typing import Callable, NamedTuple
 
 from src.classification import ClassificationResult
 from src.util.config import Config
-from src.util.log import log
 
 # 分类器函数的类型，接受待分类文件路径和配置对象，返回科目名称字符串 (若不需要存放，返回 None)
 ClassifierFunc = Callable[[Path, Config], str | ClassificationResult]
@@ -17,9 +16,7 @@ class Classifier(NamedTuple):
     id: str  # 分类器唯一标识符
     func: ClassifierFunc  # 分类器函数
 
-    def __call__(
-        self, path: Path, config: Config
-    ) -> str | ClassificationResult:
+    def __call__(self, path: Path, config: Config) -> str | ClassificationResult:
         return self.func(path, config)
 
 
@@ -35,9 +32,7 @@ def register_classifier(
         classifiers.append(
             Classifier(
                 name=name,
-                id=getattr(
-                    func, '__name__', f'UNKNOWN_classifier_{len(classifiers)}'
-                ),
+                id=getattr(func, '__name__', f'UNKNOWN_classifier_{len(classifiers)}'),
                 func=func,
             )
         )

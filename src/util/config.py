@@ -117,9 +117,7 @@ class Config(pydantic.BaseModel):
             return False
         else:
             if ver != CONFIG_API_VERSION:
-                log.error(
-                    f'配置文件的API版本 ({ver}) 与当前版本 ({CONFIG_API_VERSION}) 不匹配。'
-                )
+                log.error(f'配置文件的API版本 ({ver}) 与当前版本 ({CONFIG_API_VERSION}) 不匹配。')
                 return False
             return True
 
