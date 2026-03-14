@@ -85,9 +85,9 @@ class CSESWatcher(Watcher):
                     )
                     return delta.days * 24 * 60 * 60 + delta.seconds  # 转换为总秒数
             else:
-                raise ValueError(f"当前时间 ({now}) 可能已放学")
+                raise ValueError(f'当前时间 ({now}) 可能已放学')
         except IndexError as e:
-            raise ValueError(f"当前时间 ({now}) 可能已放学") from e
+            raise ValueError(f'当前时间 ({now}) 可能已放学') from e
 
     def __repr__(self):
         return f'<{self.__class__.__name__} schedule={self.schedule} running={self.running}>'

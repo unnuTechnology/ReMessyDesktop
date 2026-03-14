@@ -8,16 +8,16 @@ from src.util import config
 
 example_config = config.Config(**config.CONFIG_TEMPLATE)  # ty: ignore
 example_config.watching.cses_watcher = config._CSESWatcherConfig(
-    cses_path="./tests/cses_example.yaml",
-    start_day="2026/03/02",
+    cses_path='./tests/cses_example.yaml',
+    start_day='2026/03/02',
 )
 
 
 @pytest.mark.parametrize(
-    "now, excepted",
+    'now, excepted',
     [
         (datetime(2026, 3, 2, 8, 30), 30 * 60),  # 课中
-        (datetime(2026, 3, 17, 9, 5), (5+60) * 60),  # 课后
+        (datetime(2026, 3, 17, 9, 5), (5 + 60) * 60),  # 课后
     ],
 )
 def test_cses_watcher_duration(now, excepted):
