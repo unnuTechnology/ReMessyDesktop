@@ -19,8 +19,8 @@ ReMessyDesktop 的配置文件格式是 JSON 格式，一般存放在 `/config/c
   },
   "classification": {
     "cses_classifier": {
-      "cses_path": str, // CSES 课表文件的路径
-      "start_day": str, // 课表的第一周开始的日期，格式为 "YYYY-MM-DD"
+      "cses_path": str,  // CSES 课表文件的路径
+      "start_day": str  // 课表的第一周开始的日期，格式为 "YYYY-MM-DD"
     },
     "regex_classifier": {
       "patterns": {
@@ -44,11 +44,18 @@ ReMessyDesktop 的配置文件格式是 JSON 格式，一般存放在 `/config/c
     }
   },
   "placing": {
-    "enabled_placer": str, // 启用的放置器 ID
+    "enabled_placer": str,  // 启用的放置器 ID
     "default_placer": {
       "places": {
         str: str,  // 放置规则，键为科目名称，值为放置路径
+        ...
       }
+    }
+  },
+  "watching": {
+    "cses_watcher": {
+      "cses_path": str,  // CSES 课表文件的路径
+      "start_day": str  // 课表的第一周开始的日期，格式为 "YYYY-MM-DD"
     }
   }
 }

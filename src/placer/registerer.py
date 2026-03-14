@@ -4,7 +4,6 @@ from pathlib import Path
 
 from src.classification import ClassificationResult
 from src.util.config import Config
-from src.util.log import log
 
 # 放置器函数的类型，接受分类结果或科目名称字符串、配置与待放置文件路径，并进行相应的文件操作
 PlacerFunc = Callable[[str | ClassificationResult, Config, Path], None]
@@ -37,7 +36,6 @@ def register_placer(name: str) -> Callable[[PlacerFunc], PlacerFunc]:
                 func=func,
             )
         )
-        log.debug(f'放置器 {placers[-1]} 成功注册。')
         return func
 
     return decorator

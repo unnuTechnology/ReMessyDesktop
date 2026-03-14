@@ -29,7 +29,15 @@ CONFIG_TEMPLATE = {
         'enabled_placer': 'default_placer',
         'default_placer': {'places': {}},
     },
+    'watching': {
+        'cses_watcher': {'cses_path': '', 'start_day': '1970-01-01'},
+    },
 }
+
+
+class _CSESWatcherConfig(pydantic.BaseModel):
+    cses_path: str
+    start_day: str
 
 
 class _CSESClassifierConfig(pydantic.BaseModel):
@@ -43,6 +51,10 @@ class _RegexClassifierConfig(pydantic.BaseModel):
 
 class _FileTypeClassifierConfig(pydantic.BaseModel):
     rules: dict[str, str]
+
+
+class _WatchingConfig(pydantic.BaseModel):
+    cses_watcher: _CSESWatcherConfig
 
 
 class _ClassificationConfig(pydantic.BaseModel):
@@ -106,6 +118,7 @@ class Config(pydantic.BaseModel):
     app: _AppConfig
     classification: _ClassificationConfig
     placing: _PlacingConfig
+    watching: _WatchingConfig
 
     @pydantic.field_validator('api_version')
     @classmethod

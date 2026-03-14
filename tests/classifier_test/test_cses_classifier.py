@@ -10,7 +10,7 @@ from src.util import config
 
 example_config = config.Config(**config.CONFIG_TEMPLATE)  # ty: ignore
 example_config.classification.cses_classifier = config._CSESClassifierConfig(
-    cses_path='./tests/classifier_test/cses_example.yaml',
+    cses_path='./tests/cses_example.yaml',
     start_day='2026/03/02',
 )
 
