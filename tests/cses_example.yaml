@@ -17,6 +17,26 @@ subjects:
     simplified_name: 物
     teacher: 赵军
     room: "104"
+  - name: 化学
+    simplified_name: 化
+    teacher: 孙丽
+    room: "105"
+  - name: 生物
+    simplified_name: 生
+    teacher: 周明
+    room: "106"
+  - name: 历史
+    simplified_name: 史
+    teacher: 吴强
+    room: "107"
+  - name: 地理
+    simplified_name: 地
+    teacher: 郑华
+    room: "108"
+  - name: 政治
+    simplified_name: 政
+    teacher: 马超
+    room: "109"
 
 schedules:
   - name: 星期一 # 任意 string
@@ -49,10 +69,25 @@ schedules:
       - subject: 英语
         start_time: "09:00:00"
         end_time: "10:00:00"
-  - name: HackerTest
+  - name: Sunday
     enable_day: 7
     weeks: all
     classes:
+      - subject: 数学
+        start_time: "08:00:00"
+        end_time: "09:00:00"
+      - subject: 语文
+        start_time: "09:10:00"
+        end_time: "10:10:00"
       - subject: 英语
-        start_time: 00:01:10
-        end_time: 11:01:01
+        start_time: "10:20:00"
+        end_time: "11:20:00"
+      - subject: 物理
+        start_time: "14:00:00"
+        end_time: "15:00:00"
+      - subject: 数学
+        start_time: "15:10:00"
+        end_time: "16:10:00"
+      - subject: 语文
+        start_time: "16:20:00"
+        end_time: "17:20:00"
