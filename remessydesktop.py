@@ -14,9 +14,9 @@ class ReMessyDesktop:
         log.info(f'ReMessyDesktop ({BUILD_CODE}) 正在初始化……')
         self.config = config.get_config()
         log.add(
-            "./logs/RMD-LOG-{time}.log",
+            './logs/RMD-LOG-{time}.log',
             level=self.config.app.log_level,
-            retention="1 week",
+            retention='1 week',
         )
         log.debug(f'获取到的分类器：{classifiers!r}')
         log.debug(f'获取到的存放器：{placers!r}')
