@@ -1,3 +1,4 @@
+import time
 import traceback
 
 from src.util.log import log
@@ -12,20 +13,33 @@ class ReMessyDesktop:
     def __init__(self):
         log.info(f'ReMessyDesktop ({BUILD_CODE}) 正在初始化……')
         self.config = config.get_config()
+        log.add(
+            "./logs/RMD-LOG-{time}.log",
+            level=self.config.app.log_level,
+            retention="1 week",
+        )
         log.debug(f'获取到的分类器：{classifiers!r}')
         log.debug(f'获取到的存放器：{placers!r}')
         log.debug(f'获取到的监听器：{watchers!r}')
         log.success(f'ReMessyDesktop ({VERSION_FULL}) 成功初始化。')
 
     def run(self):
+        log.debug('正在启动监听器绑定……')
+        for watcher in watchers:
+            try:
+                watcher(self.config).start_watching()
+            except Exception as e:
+                log.warning(f'监听器 {watcher} 启动失败：{type(e).__name__}: {e}')
         log.success('ReMessyDesktop 开始运行。')
+        while True:
+            time.sleep(0)  # Take a break
 
 
 if __name__ == '__main__':
     try:
         app = ReMessyDesktop()
         app.run()
-    except Exception as e:
+    except BaseException as e:
         log.critical(f'发生不可恢复的错误：{type(e).__name__}: {e}')
-        log.debug(traceback.format_exc())
-        exit(1)
+        log.critical(traceback.format_exc())
+        exit(-1)

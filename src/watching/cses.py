@@ -17,7 +17,7 @@ class CSESWatcher(Watcher):
     def __init__(self, config: Config):
         super().__init__(config)
 
-        self.thread = threading.Thread(target=self.executor, args=())
+        self.thread = threading.Thread(target=self.executor, args=(), daemon=True)
         self.running = False
 
         self.schedule = CSES.from_file(self.config.watching.cses_watcher.cses_path)
@@ -25,9 +25,9 @@ class CSESWatcher(Watcher):
         log.debug(f'成功初始化 CSES 课表监听器 ({self})')
 
     def start_watching(self):
-        self.running = True
         if not self.thread.is_alive() and not self.running:
-            self.thread = threading.Thread(target=self.executor, args=())
+            self.running = True
+            self.thread = threading.Thread(target=self.executor, args=(), daemon=True)
             self.thread.start()
             log.info(f'成功启动 CSES 课表监听器 ({self.thread} @ {self})')
         else:

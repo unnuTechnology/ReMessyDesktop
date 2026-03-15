@@ -13,6 +13,7 @@ CONFIG_TEMPLATE = {
     'api_version': CONFIG_API_VERSION,
     'app': {
         'detect_path': str(pathlib.Path.expanduser(pathlib.Path('~/Desktop'))),
+        'log_level': 'INFO',
     },
     'classification': {
         'cses_classifier': {'cses_path': '', 'start_day': '1970-01-01'},
@@ -95,6 +96,7 @@ class _PlacingConfig(pydantic.BaseModel):
 
 class _AppConfig(pydantic.BaseModel):
     detect_path: str
+    log_level: str
 
     @pydantic.field_validator('detect_path')
     @classmethod
@@ -111,6 +113,14 @@ class _AppConfig(pydantic.BaseModel):
                 log.error(f'配置文件中指定的检测路径 ({value}) 不存在。')
                 raise FileNotFoundError(f'配置文件中指定的检测路径 ({value}) 不存在。')
             return value
+
+    @pydantic.field_validator('log_level')
+    @classmethod
+    def validate_log_level(cls, value: Any) -> str:
+        if value not in ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'):
+            log.critical(f'配置文件中指定的日志级别 ({value}) 不是一个有效的日志级别。')
+            raise ValueError(f'配置文件中指定的日志级别 ({value}) 不是一个有效的日志级别。')
+        return value
 
 
 class Config(pydantic.BaseModel):

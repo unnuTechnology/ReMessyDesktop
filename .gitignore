@@ -319,3 +319,4 @@ cython_debug/
 # NoMessyDesktop
 config/
 typings/
+logs/
