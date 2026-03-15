@@ -28,7 +28,7 @@ def classify(path: Path, config: Config) -> str | ClassificationResult:
             case ClassificationResult.DELETE:
                 return res
             case ClassificationResult.SKIP:
-                return ClassificationResult.SKIP
+                return res
             case _:
                 return res
     return ClassificationResult.UNKNOWN

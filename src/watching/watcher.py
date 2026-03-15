@@ -1,10 +1,11 @@
-from typing import Callable
+from typing import Callable, Any
 from abc import ABC, abstractmethod
 
 from src.util.config import Config
 
 
-watchers = []
+WatchReceiver = Callable[[], Any]
+watchers: list[type['Watcher']] = []
 
 
 class Watcher(ABC):
@@ -17,7 +18,7 @@ class Watcher(ABC):
     def __init__(self, config: Config, name: str = default_name):
         self.name = name
         self.config = config
-        self.funcs = []
+        self.funcs: list[WatchReceiver] = []
 
     @abstractmethod
     def start_watching(self):
@@ -29,12 +30,12 @@ class Watcher(ABC):
         """停止监听"""
         raise NotImplementedError
 
-    def add_command(self, fn: Callable) -> None:
+    def add_command(self, fn: WatchReceiver) -> None:
         self.funcs.append(fn)
 
     def execute(self) -> None:
         for fn in self.funcs:
-            fn(self)
+            fn()
 
     def __repr__(self):
         return f'<{self.__class__.__name__} name={self.name!r} config={self.config!r} funcs={self.funcs!r}>'

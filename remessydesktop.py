@@ -27,12 +27,17 @@ class ReMessyDesktop:
         log.debug('正在启动监听器绑定……')
         for watcher in watchers:
             try:
-                watcher(self.config).start_watching()
+                this_watcher = watcher(self.config)
+                this_watcher.add_command(self.on_check)
+                this_watcher.start_watching()
             except Exception as e:
                 log.warning(f'监听器 {watcher} 启动失败：{type(e).__name__}: {e}')
         log.success('ReMessyDesktop 开始运行。')
         while True:
             time.sleep(0)  # Take a break
+
+    def on_check(self):
+        log.info('触发了分类!')
 
 
 if __name__ == '__main__':
